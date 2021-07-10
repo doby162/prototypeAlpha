@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class TestKeys : MonoBehaviour
 {
+    public float speed = 0.1f;
+
+    public int maxFrames = 144;
+    
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("start");
+        Application.targetFrameRate = 144; // the maximum reasonable value
     }
 
     // Update is called once per frame
@@ -17,9 +23,7 @@ public class TestKeys : MonoBehaviour
         var mouse = Mouse.current;
         var delts = mouse.delta;
         transform.Rotate(0f, 1f * delts.x.ReadValue(), 0f);
-
-        float speed = 0.01f;
-
+        
         var keyboard = Keyboard.current;
 
         if (keyboard.leftArrowKey.isPressed)
