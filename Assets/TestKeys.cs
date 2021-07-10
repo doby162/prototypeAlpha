@@ -14,39 +14,42 @@ public class TestKeys : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 pos = this.transform.position;
+        var mouse = Mouse.current;
+        var delts = mouse.delta;
+        transform.Rotate(0f, 1f * delts.x.ReadValue(), 0f);
+
+        float speed = 0.01f;
 
         var keyboard = Keyboard.current;
-        if (keyboard == null)
-            Debug.Log("no keyboard?");
 
-        if (keyboard.leftArrowKey.wasPressedThisFrame)
+        if (keyboard.leftArrowKey.isPressed)
         {
-            pos.x--;
+            transform.Translate(-speed, 0, 0);
         }
-        if (keyboard.rightArrowKey.wasPressedThisFrame)
+        if (keyboard.rightArrowKey.isPressed)
         {
-            pos.x++;
-        }
-        if (keyboard.upArrowKey.wasPressedThisFrame)
-        {
-            pos.y++;
-        }
-        if (keyboard.downArrowKey.wasPressedThisFrame)
-        {
-            pos.y--;
-        }
-        if (keyboard.commaKey.wasPressedThisFrame)
-        {
-            pos.z++;
-        }
-        if (keyboard.periodKey.wasPressedThisFrame)
-        {
-            pos.z--;
-        }
+            transform.Translate(speed, 0, 0);
 
-        this.transform.position = pos;
+        }
+        if (keyboard.upArrowKey.isPressed)
+        {
+            transform.Translate(0, speed, 0);
 
+        }
+        if (keyboard.downArrowKey.isPressed)
+        {
+            transform.Translate(0, -speed, 0);
+
+        }
+        if (keyboard.commaKey.isPressed)
+        {
+            transform.Translate(0, 0, speed);
+
+        }
+        if (keyboard.periodKey.isPressed)
+        {
+            transform.Translate(0, 0, -speed);
+        }
 
         var gamepad = Gamepad.current;
         if (gamepad == null)
