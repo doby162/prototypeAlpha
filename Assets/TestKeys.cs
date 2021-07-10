@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.XInput;
 
 public class TestKeys : MonoBehaviour
 {
@@ -21,53 +23,53 @@ public class TestKeys : MonoBehaviour
     void Update()
     {
         var mouse = Mouse.current;
-        var delts = mouse.delta;
-        transform.Rotate(0f, 1f * delts.x.ReadValue(), 0f);
-        
+        var gamepad = XInputController.current; // specifically an xbox controller
         var keyboard = Keyboard.current;
 
-        if (keyboard.leftArrowKey.isPressed)
-        {
-            transform.Translate(-speed, 0, 0);
-        }
-        if (keyboard.rightArrowKey.isPressed)
-        {
-            transform.Translate(speed, 0, 0);
-
-        }
-        if (keyboard.upArrowKey.isPressed)
-        {
-            transform.Translate(0, speed, 0);
-
-        }
-        if (keyboard.downArrowKey.isPressed)
-        {
-            transform.Translate(0, -speed, 0);
-
-        }
-        if (keyboard.commaKey.isPressed)
-        {
-            transform.Translate(0, 0, speed);
-
-        }
-        if (keyboard.periodKey.isPressed)
-        {
-            transform.Translate(0, 0, -speed);
-        }
-
-        var gamepad = Gamepad.current;
         if (gamepad == null)
-            return;
-
-
-
-        if (gamepad.rightTrigger.wasPressedThisFrame)
         {
-            Debug.Log("right trigger");
+            //keyboard and mouse controls
+            Vector2Control delts = mouse.delta;
+            transform.Rotate(0f, 1f * delts.x.ReadValue(), 0f);
+
+            if (keyboard.leftArrowKey.isPressed)
+            {
+                transform.Translate(-speed, 0, 0);
+            }
+            if (keyboard.rightArrowKey.isPressed)
+            {
+                transform.Translate(speed, 0, 0);
+
+            }
+            if (keyboard.upArrowKey.isPressed)
+            {
+                transform.Translate(0, speed, 0);
+
+            }
+            if (keyboard.downArrowKey.isPressed)
+            {
+                transform.Translate(0, -speed, 0);
+
+            }
+            if (keyboard.commaKey.isPressed)
+            {
+                transform.Translate(0, 0, speed);
+
+            }
+            if (keyboard.periodKey.isPressed)
+            {
+                transform.Translate(0, 0, -speed);
+            }
+        }
+        else
+        {
+            transform.Rotate(0f, 1f * gamepad.rightStick.x.ReadValue(), 0f);
+            transform.Translate(gamepad.leftStick.x.ReadValue() * -speed,0, gamepad.leftStick.y.ReadValue() * -speed);
         }
 
-        //Vector2 move = gamepad.leftStick.ReadValue();
-        //Debug.Log(move);
+        
+
+
 
     }
 }
