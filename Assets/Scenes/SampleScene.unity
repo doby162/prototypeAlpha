@@ -1284,6 +1284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.1
   maxFrames: 144
+  gravity: 1
 --- !u!1 &1728657555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,3 +1615,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.2
   maxFrames: 144
+  gravity: -0.1
