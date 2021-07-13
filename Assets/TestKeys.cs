@@ -17,6 +17,8 @@ public class TestKeys : MonoBehaviour
     
     public float drag = 0f;
 
+    private int charge = 0;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -61,8 +63,19 @@ public class TestKeys : MonoBehaviour
             movement *= Time.deltaTime;
             movement = transform.TransformDirection(movement);
             momentum = momentum + movement;
+            // momentum is a bit broken in this instance-
+            // if you drive up a ramp, at no point do you have a positive Y vector
             momentum *= 1f - drag;
             charControl.Move(momentum);
+
+            if (charge > 0 && !gamepad.rightTrigger.isPressed)
+            {
+                Debug.Log("fire!" + charge);
+                charge = 0;
+            } else if (gamepad.rightTrigger.isPressed && charge < 100)
+            {
+                charge += 1;
+            }
         }
     }
 }
