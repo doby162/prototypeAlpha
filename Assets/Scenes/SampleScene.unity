@@ -1286,6 +1286,7 @@ MonoBehaviour:
   maxFrames: 144
   gravity: 1
   rotationSpeed: 1
+  drag: 0
 --- !u!1 &1728657555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,7 +1615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77439542e147bad4287d41cce7548318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 2
   maxFrames: 144
-  gravity: -10
+  gravity: -0.5
   rotationSpeed: 100
+  drag: 0.05

@@ -13,6 +13,10 @@ public class TestKeys : MonoBehaviour
 
     private CharacterController charControl;
 
+    private Vector3 momentum = new Vector3(0, 0, 0);
+    
+    public float drag = 0f;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -56,7 +60,9 @@ public class TestKeys : MonoBehaviour
             var movement = new Vector3(deltaX, gravity, deltaZ);
             movement *= Time.deltaTime;
             movement = transform.TransformDirection(movement);
-            charControl.Move(movement);
+            momentum = momentum + movement;
+            momentum *= 1f - drag;
+            charControl.Move(momentum);
         }
     }
 }
