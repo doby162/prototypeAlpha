@@ -14,7 +14,7 @@ public class TestKeys : MonoBehaviour
     private CharacterController charControl;
 
     private Vector3 momentum = new Vector3(0, 0, 0);
-    
+
     public float drag = 0f;
 
     private int charge = 0;
@@ -59,7 +59,7 @@ public class TestKeys : MonoBehaviour
             // see page 57 of unity in action
             var deltaX = gamepad.leftStick.x.ReadValue() * -speed;
             var deltaZ = gamepad.leftStick.y.ReadValue() * -speed;
-            var movement = new Vector3(deltaX, gravity, deltaZ);
+            var movement = new Vector3(deltaX, charControl.isGrounded ? 0f : gravity, deltaZ);
             movement *= Time.deltaTime;
             movement = transform.TransformDirection(movement);
             momentum = momentum + movement;
@@ -72,7 +72,8 @@ public class TestKeys : MonoBehaviour
             {
                 Debug.Log("fire!" + charge);
                 charge = 0;
-            } else if (gamepad.rightTrigger.isPressed && charge < 100)
+            }
+            else if (gamepad.rightTrigger.isPressed && charge < 100)
             {
                 charge += 1;
             }
