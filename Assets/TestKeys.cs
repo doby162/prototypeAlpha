@@ -47,6 +47,11 @@ public class TestKeys : MonoBehaviour
             // all this nonsense allows the char controller to enforce walls
             // see page 57 of unity in action
             var deltaZ = gamepad.leftStick.y.ReadValue() * speed;
+            if (charge > 0 && gamepad.aButton.wasReleasedThisFrame)
+            {
+                deltaZ += charge * 3;
+                charge = 0;
+            }
             var movement = new Vector3(0f, charControl.isGrounded ? 0f : gravity, deltaZ);
             movement *= Time.deltaTime;
             movement = transform.TransformDirection(movement);
@@ -57,7 +62,7 @@ public class TestKeys : MonoBehaviour
                 momentum.y += charge / 100;
                 charge = 0;
             }
-            
+
             momentum *= 1f - drag;
             charControl.Move(momentum);
 
@@ -72,7 +77,7 @@ public class TestKeys : MonoBehaviour
                 shot.velocity = transform.TransformDirection(forwardup * charge);
                 charge = 0;
             }
-            else if (gamepad.rightTrigger.isPressed || gamepad.xButton.isPressed && charge < 100)
+            else if (gamepad.rightTrigger.isPressed || gamepad.xButton.isPressed || gamepad.aButton.isPressed && charge < 100)
             {
                 charge += 1;
             }

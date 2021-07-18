@@ -33,15 +33,19 @@ public class VRPlayerController : MonoBehaviour
 
     [SerializeField] float MaxMovementBoundary;
 
+    [SerializeField] GameObject LeftHandFollowerObject;
+    [SerializeField] GameObject RightHandFollowerObject;
+
     private void Awake()
     {
+        LeftHandFollowerObject.transform.parent = null;
+        RightHandFollowerObject.transform.parent = null;
         gameObject.transform.localPosition = new Vector3(Mathf.Clamp(gameObject.transform.localPosition.x, -MaxMovementBoundary, MaxMovementBoundary), gameObject.transform.localPosition.y, Mathf.Clamp(gameObject.transform.localPosition.z, -MaxMovementBoundary, MaxMovementBoundary));
     }
 
     private void Start()
     {
         gameObject.transform.localPosition = new Vector3(Mathf.Clamp(gameObject.transform.localPosition.x, -MaxMovementBoundary, MaxMovementBoundary), gameObject.transform.localPosition.y, Mathf.Clamp(gameObject.transform.localPosition.z, -MaxMovementBoundary, MaxMovementBoundary));
-
     }
 
     void Update()
@@ -58,7 +62,6 @@ public class VRPlayerController : MonoBehaviour
         }
 
         gameObject.transform.localPosition = new Vector3(Mathf.Clamp(gameObject.transform.localPosition.x, -MaxMovementBoundary, MaxMovementBoundary), gameObject.transform.localPosition.y, Mathf.Clamp(gameObject.transform.localPosition.z, -MaxMovementBoundary, MaxMovementBoundary));
-
 
         if (RotationJoystickInput.axis.x < -RotationJoystickDeadZone && !AwaitingRotationJoystickResetLEFT)
         {
@@ -103,5 +106,17 @@ public class VRPlayerController : MonoBehaviour
         {
             AwaitingRotationJoystickResetRIGHT = false;
         }
+
+
+
+
+        LeftHandObject.transform.parent = null;
+        RightHandObject.transform.parent = null;
+
+        CameraOffsetObject.transform.parent = null;
+        PlayerObject.transform.position = new Vector3(PlayerHead.transform.position.x, PlayerObject.transform.position.y, PlayerHead.transform.position.z);
+        CameraOffsetObject.transform.parent = PlayerObject.transform;
+        LeftHandObject.transform.parent = PlayerObject.transform;
+        RightHandObject.transform.parent = PlayerObject.transform;
     }
 }

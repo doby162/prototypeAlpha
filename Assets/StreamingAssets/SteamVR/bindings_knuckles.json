@@ -123,20 +123,20 @@
             },
             {
                "inputs" : {
-                  "force" : {
-                     "output" : "/actions/default/in/squeeze"
+                  "pull" : {
+                     "output" : "/actions/default/in/leftgrabtrigger"
                   }
                },
-               "mode" : "force_sensor",
+               "mode" : "trigger",
                "path" : "/user/hand/left/input/grip"
             },
             {
                "inputs" : {
-                  "force" : {
-                     "output" : "/actions/default/in/squeeze"
+                  "pull" : {
+                     "output" : "/actions/default/in/righttgrabtrigger"
                   }
                },
-               "mode" : "force_sensor",
+               "mode" : "trigger",
                "path" : "/user/hand/right/input/grip"
             },
             {

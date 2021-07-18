@@ -65,6 +65,16 @@
       "requirement": "mandatory"
     },
     {
+      "name": "/actions/default/in/LeftGrabTrigger",
+      "type": "vector1",
+      "requirement": "mandatory"
+    },
+    {
+      "name": "/actions/default/in/RighttGrabTrigger",
+      "type": "vector1",
+      "requirement": "mandatory"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },

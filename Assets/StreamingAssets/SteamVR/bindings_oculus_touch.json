@@ -134,9 +134,12 @@
                "inputs" : {
                   "click" : {
                      "output" : "/actions/default/in/interactui"
+                  },
+                  "pull" : {
+                     "output" : "/actions/default/in/leftgrabtrigger"
                   }
                },
-               "mode" : "button",
+               "mode" : "trigger",
                "path" : "/user/hand/left/input/trigger"
             },
             {
@@ -170,9 +173,12 @@
                "inputs" : {
                   "click" : {
                      "output" : "/actions/default/in/interactui"
+                  },
+                  "pull" : {
+                     "output" : "/actions/default/in/righttgrabtrigger"
                   }
                },
-               "mode" : "button",
+               "mode" : "trigger",
                "path" : "/user/hand/right/input/trigger"
             },
             {
