@@ -3273,7 +3273,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1725982594}
   - component: {fileID: 1725982593}
-  - component: {fileID: 1725982595}
   - component: {fileID: 1725982596}
   - component: {fileID: 1725982597}
   m_Layer: 0
@@ -3319,25 +3318,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1725982595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1725982592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77439542e147bad4287d41cce7548318, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.1
-  maxFrames: 144
-  gravity: 1
-  rotationSpeed: 1
-  drag: 0
-  bulletTemplate: {fileID: 2737767714635023169, guid: 8f83484acf27af64f99efe39f888a71c,
-    type: 3}
 --- !u!114 &1725982596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4031,4 +4011,5 @@ MonoBehaviour:
   gravity: -1
   rotationSpeed: 100
   drag: 0.05
-  bulletTemplate: {fileID: 0}
+  bulletTemplate: {fileID: 2737767714635023169, guid: 8f83484acf27af64f99efe39f888a71c,
+    type: 3}
