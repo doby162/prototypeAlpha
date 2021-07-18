@@ -10,7 +10,7 @@ public class VRPlayerController : MonoBehaviour
     public SteamVR_Action_Boolean MovementJoystickPressed;
 
     private float MovementJoystickDeadZone = 0.1f;
-    private float MovementSpeed = 1f;
+    private float MovementSpeed = 3f;
 
     [SerializeField] GameObject PlayerMovementDirectionObject;
     [SerializeField] GameObject PlayerHead;
@@ -31,6 +31,19 @@ public class VRPlayerController : MonoBehaviour
     [SerializeField] GameObject LeftHandObject;
     [SerializeField] GameObject RightHandObject;
 
+    [SerializeField] float MaxMovementBoundary;
+
+    private void Awake()
+    {
+        gameObject.transform.localPosition = new Vector3(Mathf.Clamp(gameObject.transform.localPosition.x, -MaxMovementBoundary, MaxMovementBoundary), gameObject.transform.localPosition.y, Mathf.Clamp(gameObject.transform.localPosition.z, -MaxMovementBoundary, MaxMovementBoundary));
+    }
+
+    private void Start()
+    {
+        gameObject.transform.localPosition = new Vector3(Mathf.Clamp(gameObject.transform.localPosition.x, -MaxMovementBoundary, MaxMovementBoundary), gameObject.transform.localPosition.y, Mathf.Clamp(gameObject.transform.localPosition.z, -MaxMovementBoundary, MaxMovementBoundary));
+
+    }
+
     void Update()
     {
         PlayerMovementDirectionObject.transform.eulerAngles = new Vector3(0, PlayerHead.transform.eulerAngles.y, 0);
@@ -44,6 +57,7 @@ public class VRPlayerController : MonoBehaviour
             gameObject.transform.position += PlayerMovementDirectionObject.transform.forward.normalized * MovementSpeed * Time.deltaTime * MovementJoystickInput.axis.y;
         }
 
+        gameObject.transform.localPosition = new Vector3(Mathf.Clamp(gameObject.transform.localPosition.x, -MaxMovementBoundary, MaxMovementBoundary), gameObject.transform.localPosition.y, Mathf.Clamp(gameObject.transform.localPosition.z, -MaxMovementBoundary, MaxMovementBoundary));
 
 
         if (RotationJoystickInput.axis.x < -RotationJoystickDeadZone && !AwaitingRotationJoystickResetLEFT)
