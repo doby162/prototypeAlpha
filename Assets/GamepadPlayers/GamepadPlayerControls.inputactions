@@ -14,9 +14,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Buttons and Triggers",
+                    "name": "Jump Button",
                     "type": "PassThrough",
                     "id": "2e5c5c39-4717-4306-b3fe-44da9f98ad25",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Car Canon Button",
+                    "type": "PassThrough",
+                    "id": "6bd550aa-44dc-48cb-a1d0-f7b545e12e17",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -96,7 +104,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Buttons and Triggers",
+                    "action": "Jump Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e5f0465a-10d8-4e29-ba80-8e3b599c9756",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Car Canon Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "448f6f82-360a-4d16-8272-843664a6b07b",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Car Canon Button",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -21,6 +21,11 @@ public class GamepadPlayerControllerLogic : MonoBehaviour
     private bool jumpButtonHeld = false;
     private bool jumpButtonReleased = false;
 
+    [SerializeField] WheelCollider Wheel1;
+    [SerializeField] WheelCollider Wheel2;
+    [SerializeField] WheelCollider Wheel3;
+    [SerializeField] WheelCollider Wheel4;
+
     private void Start()
     {
         carRigidBody = GetComponent<Rigidbody>();
@@ -29,10 +34,9 @@ public class GamepadPlayerControllerLogic : MonoBehaviour
     void Update()
     {
         /* Rotate the "car" so that it drives like a car. No strafing. */
-        transform.Rotate(0f, rotationSpeed * movementInput.x * Time.deltaTime, 0f);
+        //transform.Rotate(0f, rotationSpeed * movementInput.x * Time.deltaTime, 0f);
 
         /* Add force to the car so it goes . . . forward? */
-        carRigidBody.AddForce(gameObject.transform.forward.normalized * speed * movementInput.y * Time.deltaTime);
 
         /* Dash - on RELEASE of "Dash" button (A on xBox controller)*/
         // Stuck in the middle, because it wants to modify momentum before it is applied to the car
@@ -53,19 +57,6 @@ public class GamepadPlayerControllerLogic : MonoBehaviour
         //     charge = 0;
         // }
 
-        /* Fire - on RELEASE of "Fire" button (Right Trigger on xBox controller) */
-        // if (charge > 0 && gamepad.rightTrigger.wasReleasedThisFrame)
-        // {
-        //     var position = transform.position;
-        //     position.y++;
-        //     Rigidbody shot;
-        //     shot = Instantiate(bulletTemplate, position, new Quaternion(0f, 0f, 0f, 0f));
-        //     var forwardUp = Vector3.forward;
-        //     forwardUp.y = 0.6f;
-        //     shot.velocity = transform.TransformDirection(forwardUp * charge);
-        //     charge = 0;
-        // }
-
         /* "Charge" - If any of the action buttons is held down, "charge" to get ready for release */
         // if (gamepad.rightTrigger.isPressed || gamepad.xButton.isPressed ||
         //     gamepad.aButton.isPressed && charge < 100)
@@ -77,6 +68,15 @@ public class GamepadPlayerControllerLogic : MonoBehaviour
             Debug.Log("Jump charge +1");
             charge += 1;
         }
+
+
+        Wheel1.motorTorque = movementInput.y * speed;
+        Wheel2.motorTorque = movementInput.y * speed;
+        Wheel3.motorTorque = movementInput.y * speed;
+        Wheel4.motorTorque = movementInput.y * speed;
+
+        Wheel1.steerAngle = movementInput.x * 45f;
+        Wheel2.steerAngle = movementInput.x * 45f;
     }
 
     public void OnMove(InputAction.CallbackContext ctx)
