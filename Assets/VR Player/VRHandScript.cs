@@ -7,6 +7,9 @@ using Valve.VR.InteractionSystem;
 public class VRHandScript : MonoBehaviour
 {
     public SteamVR_Action_Single GrabTrigger;
+    public SteamVR_Action_Boolean TopButton;
+    public SteamVR_Action_Boolean BottomButton;
+    public SteamVR_Action_Single PointerFingerTrigger;
 
     float MinimumGrabAmmmount = 0.5f;
 
@@ -14,36 +17,147 @@ public class VRHandScript : MonoBehaviour
 
     public Grabbable GrabbedObject;
 
-    [SerializeField] GameObject TargetPosition;
+    public GameObject TargetPosition;
+
+    bool LastTopButtonState = false;
+
+    bool LastBottomButtonState = false;
+
+    bool DebugMode = false;
+
+    public bool UpdatePosition = true;
+
+    public bool CanGrabObjects = true;
+
+    bool SnapGrabbingObject = false;
+
+    public SnapGrabbable SnapGrabbedObject;
+
+    [SerializeField] AirshipController Airship;
+
+    [SerializeField] Rigidbody RigidbodyFollowerPortion;
+
+    private void Start()
+    {
+        gameObject.transform.parent = null;
+        RigidbodyFollowerPortion.transform.parent = Airship.transform;
+    }
 
     private void Update()
     {
-        if (GrabTrigger.axis < 0.4f && GrabbingObject && GrabbedObject != null)
+        if (GrabTrigger.axis < MinimumGrabAmmmount - 0.1f)
         {
-            GrabbedObject.ReleasedByHand();
-            GrabbedObject.gameObject.AddComponent<Rigidbody>();
-            GrabbedObject.GetComponent<Rigidbody>().velocity = gameObject.transform.GetComponent<Rigidbody>().velocity;
+            if (GrabbingObject && GrabbedObject != null)
+            {
+                ReleaseGrabbedObject();
+            }
+            else
+            {
+                if (SnapGrabbingObject && SnapGrabbedObject != null)
+                {
+                    ReleaseSnapGrabObject();
+                }
+            }
         }
 
-        gameObject.GetComponent<Rigidbody>().MovePosition(TargetPosition.transform.position);
+        if (TopButton.state && !LastTopButtonState)
+        {
+            TopButtonPressed();
+        }
+
+        LastTopButtonState = TopButton.state;
+
+        if (BottomButton.state && !LastBottomButtonState)
+        {
+            BottomButtonPushed();
+        }
+
+        LastBottomButtonState = BottomButton.state;
+
+        if (UpdatePosition)
+        {
+            RigidbodyFollowerPortion.MovePosition(TargetPosition.transform.position);
+            RigidbodyFollowerPortion.MoveRotation(TargetPosition.transform.rotation);
+
+            gameObject.transform.position = TargetPosition.transform.position;
+            gameObject.transform.rotation = TargetPosition.transform.rotation;
+        }
+    }
+
+    public void ReleaseSnapGrabObject()
+    {
+        SnapGrabbedObject.ReleasedByHand();
+        UpdatePosition = true;
+        SnapGrabbingObject = false;
+        SnapGrabbedObject = null;
+
+        gameObject.transform.position = TargetPosition.transform.position;
+        gameObject.transform.rotation = TargetPosition.transform.rotation;
+    }
+
+    public void TopButtonPressed()
+    {
+        if (GrabbingObject && GrabbedObject != null)
+        {
+            if (GrabbedObject.GetComponent<VRPlayerGrenade>())
+            {
+                GrabbedObject.GetComponent<VRPlayerGrenade>().Activate();
+            }
+        }
+    }
+
+    public void BottomButtonPushed()
+    {
+        if (GrabbingObject && GrabbedObject != null)
+        {
+
+        }
+    }
+
+    public void ReleaseGrabbedObject()
+    {
+        GrabbedObject.ReleasedByHand();
+
+        GrabbedObject.transform.parent = Airship.gameObject.transform;
+
+        GrabbedObject.gameObject.AddComponent<Rigidbody>();
+
+        GrabbedObject.GetComponent<Rigidbody>().velocity = RigidbodyFollowerPortion.velocity + Airship.GetComponent<Rigidbody>().velocity;
+
+        GrabbedObject = null;
+        GrabbingObject = false;
     }
 
     private void OnTriggerStay(Collider other)
     {
-        print("dsgj9e0sgn90wehg80             1");
         if (!GrabbingObject)
         {
-            other.GetComponent<Renderer>().material.color = Color.red;
-            if (other.gameObject.GetComponent<Grabbable>())
+            if (GrabTrigger.axis > MinimumGrabAmmmount)
             {
-                print("dsgj9e0sgn90wehg80             3");
-                if (!other.gameObject.GetComponent<Grabbable>().Grabbed)
+                if (DebugMode)
                 {
-                    print("dsgj9e0sgn90wehg80             4");
-                    if (GrabTrigger.axis > MinimumGrabAmmmount)
+                    other.GetComponent<Renderer>().material.color = Color.red;
+                }
+                if (other.gameObject.GetComponent<Grabbable>())
+                {
+                    if (!other.gameObject.GetComponent<Grabbable>().Grabbed)
                     {
-                        print("dsgj9e0sgn90wehg80             5");
-                        GrabObject(other.gameObject.GetComponent<Grabbable>());
+                        if (other.gameObject.GetComponent<Grabbable>().CanBeGrabbed)
+                        {
+                            GrabObject(other.gameObject.GetComponent<Grabbable>());
+                        }
+                    }
+                }
+                else
+                {
+                    if (other.GetComponent<SnapGrabbable>())
+                    {
+                        if (other.GetComponent<SnapGrabbable>().Hand == null)
+                        {
+                            other.GetComponent<SnapGrabbable>().GrabbedByHand(this);
+                            SnapGrabbingObject = true;
+                            SnapGrabbedObject = other.GetComponent<SnapGrabbable>();
+                        }
                     }
                 }
             }
@@ -52,17 +166,13 @@ public class VRHandScript : MonoBehaviour
 
     public void GrabObject(Grabbable NewGrabObject)
     {
-        print("dsgj9e0sgn90wehg80             6");
         GrabbedObject = NewGrabObject;
-        print("dsgj9e0sgn90wehg80             7");
-        NewGrabObject.GrabbedByHand();
-        print("dsgj9e0sgn90wehg80             8");
+        NewGrabObject.GrabbedByHand(this);
+        GrabbingObject = true;
         if (NewGrabObject.GetComponent<Rigidbody>())
         {
-            print("dsgj9e0sgn90wehg80             9");
             Destroy(NewGrabObject.GetComponent<Rigidbody>());
         }
-        print("dsgj9e0sgn90wehg80             10");
         NewGrabObject.transform.parent = gameObject.transform;
     }
 }

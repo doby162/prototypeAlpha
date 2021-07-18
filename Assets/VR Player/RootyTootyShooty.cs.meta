@@ -3,7 +3,11 @@ guid: 83411f3306316774ca613599e7353ce3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bulletTemplate: {fileID: 2737767714635023169, guid: 8f83484acf27af64f99efe39f888a71c,
+      type: 3}
+  - PlayerMovementDirectionObject: {fileID: 132594, guid: 4f35fa249b5008c44ac2998be6f82d4d,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

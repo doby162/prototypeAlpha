@@ -145,6 +145,70 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean LeftTopButton
+        {
+            get
+            {
+                return SteamVR_Actions.default_LeftTopButton;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean LeftBottomButton
+        {
+            get
+            {
+                return SteamVR_Actions.default_LeftBottomButton;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean RightTopButton
+        {
+            get
+            {
+                return SteamVR_Actions.default_RightTopButton;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean RightBottomButton
+        {
+            get
+            {
+                return SteamVR_Actions.default_RightBottomButton;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean LeftGrabBool
+        {
+            get
+            {
+                return SteamVR_Actions.default_LeftGrabBool;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean RightGrabBool
+        {
+            get
+            {
+                return SteamVR_Actions.default_RightGrabBool;
+            }
+        }
+        
+        public virtual SteamVR_Action_Single LeftPointerFingerTrigger
+        {
+            get
+            {
+                return SteamVR_Actions.default_LeftPointerFingerTrigger;
+            }
+        }
+        
+        public virtual SteamVR_Action_Single RightPointerFingerTrigger
+        {
+            get
+            {
+                return SteamVR_Actions.default_RightPointerFingerTrigger;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get

@@ -36,10 +36,10 @@ public class VRPlayerController : MonoBehaviour
     [SerializeField] GameObject LeftHandFollowerObject;
     [SerializeField] GameObject RightHandFollowerObject;
 
+    [SerializeField] GameObject Airship;
+
     private void Awake()
     {
-        LeftHandFollowerObject.transform.parent = null;
-        RightHandFollowerObject.transform.parent = null;
         gameObject.transform.localPosition = new Vector3(Mathf.Clamp(gameObject.transform.localPosition.x, -MaxMovementBoundary, MaxMovementBoundary), gameObject.transform.localPosition.y, Mathf.Clamp(gameObject.transform.localPosition.z, -MaxMovementBoundary, MaxMovementBoundary));
     }
 

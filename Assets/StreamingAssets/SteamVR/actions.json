@@ -75,6 +75,45 @@
       "requirement": "mandatory"
     },
     {
+      "name": "/actions/default/in/LeftTopButton",
+      "type": "boolean",
+      "requirement": "mandatory"
+    },
+    {
+      "name": "/actions/default/in/LeftBottomButton",
+      "type": "boolean",
+      "requirement": "mandatory"
+    },
+    {
+      "name": "/actions/default/in/RightTopButton",
+      "type": "boolean",
+      "requirement": "mandatory"
+    },
+    {
+      "name": "/actions/default/in/RightBottomButton",
+      "type": "boolean",
+      "requirement": "mandatory"
+    },
+    {
+      "name": "/actions/default/in/LeftGrabBool",
+      "type": "boolean",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/default/in/RightGrabBool",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/LeftPointerFingerTrigger",
+      "type": "vector1",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/default/in/RightPointerFingerTrigger",
+      "type": "vector1",
+      "requirement": "optional"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },
