@@ -52,16 +52,17 @@
     {
       "name": "/actions/default/in/LeftJoystickVector2",
       "type": "vector2",
-      "requirement": "suggested"
+      "requirement": "mandatory"
     },
     {
       "name": "/actions/default/in/LeftJoystickPressed",
-      "type": "boolean"
+      "type": "boolean",
+      "requirement": "mandatory"
     },
     {
       "name": "/actions/default/in/RightJoystickVector2",
       "type": "vector2",
-      "requirement": "suggested"
+      "requirement": "mandatory"
     },
     {
       "name": "/actions/default/out/Haptic",
@@ -100,7 +101,7 @@
   "action_sets": [
     {
       "name": "/actions/default",
-      "usage": "single"
+      "usage": "leftright"
     },
     {
       "name": "/actions/platformer",
