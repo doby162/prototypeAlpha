@@ -1287,6 +1287,7 @@ MonoBehaviour:
   gravity: 1
   rotationSpeed: 1
   drag: 0
+  bulletTemplate: {fileID: 0}
 --- !u!1 &1728657555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,3 +1621,5 @@ MonoBehaviour:
   gravity: -1
   rotationSpeed: 100
   drag: 0.05
+  bulletTemplate: {fileID: 2737767714635023169, guid: 90ef0e1084a8d6c42a57dd66ed181240,
+    type: 3}

@@ -11,13 +11,15 @@ public class TestKeys : MonoBehaviour
 
     public float rotationSpeed = 1f;
 
+    public float drag;
+
+    public Rigidbody bulletTemplate;
+
     private CharacterController charControl;
 
+    private int charge;
+
     private Vector3 momentum = new Vector3(0, 0, 0);
-
-    public float drag = 0f;
-
-    private int charge = 0;
 
     // Start is called before the first frame update
     private void Start()
@@ -70,7 +72,13 @@ public class TestKeys : MonoBehaviour
 
             if (charge > 0 && !gamepad.rightTrigger.isPressed)
             {
-                Debug.Log("fire!" + charge);
+                var position = transform.position;
+                position.y++;
+                Rigidbody shot;
+                shot = Instantiate(bulletTemplate, position, new Quaternion(0f, 0f, 0f, 0f));
+                var backup = Vector3.back;
+                backup.y = 0.6f;
+                shot.velocity = transform.TransformDirection(backup * charge);
                 charge = 0;
             }
             else if (gamepad.rightTrigger.isPressed && charge < 100)
